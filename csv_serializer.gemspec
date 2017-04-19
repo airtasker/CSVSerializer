@@ -6,12 +6,13 @@ require 'csv_serializer/version'
 Gem::Specification.new do |spec|
   spec.name          = "csv_serializer"
   spec.version       = CsvSerializer::VERSION
-  spec.authors       = ["TODO: Write your name"]
+  spec.authors       = ["Baash05"]
   spec.email         = ["david@airtasker.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "Create CSV's from active records, in as close to the way ActiveModel::Serializer works"
+  spec.description   = "The creation of JSON from a serializer is quite easy with ActiveModel::Serializer " \
+                       "This gem hopes to make the creation of a CSV as simple and as close to the same as the authors can invision"
+  spec.homepage      = "https://github.com/airtasker/CSVSerializer"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -30,6 +31,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.14"
+  spec.add_development_dependency "rails", "~> 4.2.6"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
 end
