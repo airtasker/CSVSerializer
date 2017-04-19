@@ -4,32 +4,31 @@ require 'active_support/all'
 module CsvSerializer
   class CsvSerializer
     cattr_accessor :step_size
-    attr_reader :relations
+    attr_reader :attributes, :relations
     self.step_size = 1000 #default step size, for reading from the database
 
-    class << self
-      #Calculated attributes are derived based on rules inside the derived class, the field is added
-      def calc_attributes(*columns)
-        attributes( Array.wrap(columns).map { |c| "NULL as #{c}" } )
-      end
 
-      #Private attributes are requested from the database, but are not added to the CSV.
-      #the are here to support the query construction
-      def private_attributes(*columns)  #these are used in the serializer, but never returned in the resulting data.
-        attributes(*columns)
-        @private_attributes ||= []
-        if columns
-          columns = Array.wrap(columns).map{ |c|  c.to_s.gsub(/^.*((as )|\.)/, '') }
-          @private_attributes += columns
-        end
-        @private_attributes
-      end
+    #Calculated attributes are derived based on rules inside the derived class, the field is added
+    def self.calc_attributes(*columns)
+      attributes( Array.wrap(columns).map { |c| "NULL as #{c}" } )
+    end
 
-      def attributes(*columns)
-        @attributes ||= []
-        @attributes += Array.wrap(columns) if columns
-        @attributes
+    #Private attributes are requested from the database, but are not added to the CSV.
+    #the are here to support the query construction
+    def self.private_attributes(*columns)  #these are used in the serializer, but never returned in the resulting data.
+      attributes(*columns)
+      @private_attributes ||= []
+      if columns
+        columns = Array.wrap(columns).map{ |c|  c.to_s.gsub(/^.*((as )|\.)/, '') }
+        @private_attributes += columns
       end
+      @private_attributes
+    end
+
+    def self.attributes(*columns)
+      @attributes ||= []
+      @attributes += Array.wrap(columns) if columns
+      @attributes
     end
 
     def initialize(*relations)
